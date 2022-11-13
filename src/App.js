@@ -1,25 +1,37 @@
-import logo from './logo.svg';
+
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import './App.css';
+import Layout from './Component/Layout';
+import { Login } from './Component/Login';
+import { Register } from './Component/Register';
+import { Notfound } from './Component/Notfound';
+import { Home } from './Component/Home';
+import ParticlesComponent from './Component/Particles';
+// import ParticlesBackground from './Component/ParticlesBackground';
+let routers= createBrowserRouter([
+  {path:'/',element:<Layout/> ,children:[
+    {path:'login',element:<Login/>},
+    {index:true,element:<Register/>},
+    {path:'register',element:<Register/>},
+    {path:'home',element:<Home/>},
+    {path:'*',element:<Notfound/> }
+  ] }
+]);
+
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+
+
+  
+  return <>
+      <ParticlesComponent/>
+      <RouterProvider router={routers}/>
+      
+  </>
+      
+       
+    
+
 }
 
 export default App;
