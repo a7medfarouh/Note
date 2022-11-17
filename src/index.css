@@ -133,3 +133,6 @@ button{
     background-color: gray !important;
     border-color:gray !important ;
 }
+.spnav{
+    cursor: pointer;
+}

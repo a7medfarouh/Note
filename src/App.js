@@ -1,27 +1,28 @@
 
-import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import { createHashRouter, RouterProvider } from 'react-router-dom';
 import './App.css';
 import Layout from './Component/Layout';
 import { Login } from './Component/Login';
 import { Register } from './Component/Register';
-import { Notfound } from './Component/Notfound';
+// import { Notfound } from './Component/Notfound';
 import { Home } from './Component/Home';
 import ParticlesComponent from './Component/Particles';
-// import ParticlesBackground from './Component/ParticlesBackground';
-let routers= createBrowserRouter([
+
+
+let routers= createHashRouter([
   {path:'/',element:<Layout/> ,children:[
-    {path:'login',element:<Login/>},
-    {index:true,element:<Register/>},
+    {index:true,element:<Login/>},
     {path:'register',element:<Register/>},
     {path:'home',element:<Home/>},
-    {path:'*',element:<Notfound/> }
+    {path:'*',element:<Login/> }
   ] }
 ]);
 
 
+
 function App() {
 
-
+  
   
   return <>
       <ParticlesComponent/>
