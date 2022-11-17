@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
-
+// import { useNavigate } from 'react-router-dom';
+import { Link , useNavigate } from 'react-router-dom'
 
 
 export  function Register() {
@@ -49,7 +49,14 @@ export  function Register() {
               {error ?<div className="alert alert-danger mt-2">
                             {error}
                         </div>:""}
+
+                
           </form>
+          <div  className="text-center d-flex justify-content-center align-items-center text-white p-3">
+            <span className='fs-4 mx-2' >Already a member?   </span>
+            <Link to="login" className="nav-link bg-special">  LogIn</Link>
+            </div>
+         
       </div>
   </div>
 </>

@@ -136,3 +136,6 @@ button{
 .spnav{
     cursor: pointer;
 }
+.bg-special{
+    color: cadetblue !important;
+}

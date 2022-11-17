@@ -1,6 +1,6 @@
 import React, { useState }  from 'react'
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+import { Link , useNavigate } from 'react-router-dom'
 
 
 
@@ -45,6 +45,11 @@ export function Login() {
                   {error}
               </div>}
           </form>
+          
+        <div  className="text-center d-flex justify-content-center align-items-center text-white py-3">
+            <span className='fs-4 mx-2' >Not a member yet?  </span>
+            <Link to="register" className="nav-link bg-special">  Create Account</Link>
+        </div>
       </div>
   </div>
 </>
