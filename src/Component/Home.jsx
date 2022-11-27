@@ -10,7 +10,9 @@ export  function Home() {
     // console.log(userID);
     let baseURL = 'https://route-egypt-api.herokuapp.com/';
     const [notes, setNotes] = useState([])
+
     const [note, setNote] = useState({ 'title': '', 'desc': '', userID, token })
+    
     async function getUserNotes() {
         let { data } = await axios.get(baseURL + "getUserNotes", {
             headers: {
@@ -54,7 +56,7 @@ export  function Home() {
             getUserNotes()
         }
     }
-    async function deleteNote(NoteID) {
+    function deleteNote(NoteID) {
         Swal.fire({
             title: 'Are you sure?',
             text: "You won't be able to revert this!",
