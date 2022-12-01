@@ -7,24 +7,27 @@ export  function Home() {
     let token= localStorage.getItem("token");
     let userDecoded = jwtDecode(token)
     let userID = userDecoded._id;
-    // console.log(userID);
-    let baseURL = 'https://route-egypt-api.herokuapp.com/';
+    // let citizenID = userDecoded._id;
+    console.log(userID);
+    console.log(token);
+    let baseURL = 'https://routeegypt.herokuapp.com/';
     const [notes, setNotes] = useState([])
 
-    const [note, setNote] = useState({ 'title': '', 'desc': '', userID, token })
+    const [note, setNote] = useState({ 'title': '', 'desc': '', 'citzenID':userID, token })
     
     async function getUserNotes() {
-        let { data } = await axios.get(baseURL + "getUserNotes", {
+        let { data } = await axios.post(baseURL+"getUserNotes", {
             headers: {
+                token,
                 userID,
-                Token:token
             }
         })
+        console.log(data);
         if (data.message == 'success') {
             setNotes(data.Notes)
 
         }
-        // console.log(notes);
+        console.log(notes);
     }
 
     useEffect(() => {
@@ -33,6 +36,7 @@ export  function Home() {
 
     function getNote({ target }) {
         setNote({ ...note, [target.name]: target.value })
+        console.log({ ...note, [target.name]: target.value })
     }
 
     // console.log(note);
@@ -41,8 +45,8 @@ export  function Home() {
     async function addNote(e) {
         e.preventDefault();
 
-        let { data } = await axios.post(baseURL + 'addNote', note)
-        // console.log(data);
+        let { data } = await axios.post(baseURL+'addNote', note)
+        console.log(data);
 
         if (data.message == 'success') {
             Swal.fire({

@@ -35,9 +35,9 @@ function App() {
   
   
   return <>
-      <ParticlesComponent/>
-      <RouterProvider router={routers}/>
       
+      <RouterProvider router={routers}/>
+      <ParticlesComponent/>
   </>
       
        

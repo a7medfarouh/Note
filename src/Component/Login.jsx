@@ -6,8 +6,8 @@ import Joi from 'joi';
 
 
 export function Login() {
-  let baseURL = 'https://route-egypt-api.herokuapp.com/';
-  const [user, setUser] = useState({ 'first_name': '', 'last_name': '', 'email': '', 'password': '' });
+  let baseURL = 'https://routeegypt.herokuapp.com/';
+  const [user, setUser] = useState({ 'email': '', 'password': '' });
   const [error, setError] = useState('')
   const [message, setMessage] = useState([])
   const [isLoading, setIsLoading] = useState(false)
@@ -16,28 +16,28 @@ export function Login() {
   
     async function signIn(e) {
         e.preventDefault();
+        // console.log("aa")
         setIsLoading(true);
         const schema = Joi.object({
-            first_name:Joi.string().alphanum().min(3).max(10).required(),
-            last_name:Joi.string().alphanum().min(3).max(10).required(),
-            age:Joi.number().min(18).max(60).required(),
             email:Joi.string().email({ minDomainSegments: 2, tlds: { allow: ['com', 'net'] } }).required(),
             password:Joi.string().pattern(/^[A-Z]+[a-z]+[0-9]+/i).required(),
         })
         let res=schema.validate(user,{abortEarly:false});
+        console.log(res)
         if( res.error ){
             setMessage(res.error.details);
             setIsLoading(false);
         }
         else{
-            let { data } = await axios.post(baseURL + 'signup', user)
-            
-    
-            if(data.errors){
-              setError(data.message);
+            let { data } = await axios.post(baseURL + 'signin', user)
+            console.log(data);
+            if(data.message =='success'){
+                localStorage.setItem("token",data.token)
+                navigate('/home');
+              
             }
             else{
-             navigate('/login');
+                setError(data.message);
             
             }
             setIsLoading(false);
@@ -70,7 +70,7 @@ export function Login() {
                   <input onChange={getUser}  placeholder="Enter you password" type="password" name="password" className=" form-control" />
                   { getError("password").length===0?'':<div className='alert alert-danger '>{getError("password")}</div>}
               </div>
-              <button type="submit" className={'btn btn-info w-100'+ (isLoading? " disabled":"")}> {isLoading? <i className="fa fa-spinner fa-spin" aria-hidden="true"></i> : 'SignIn'}  </button>
+              <button type="submit" className={'btn btn-info w-100'+(isLoading? " disabled":"")}> {isLoading? <i className="fa fa-spinner fa-spin" aria-hidden="true"></i> : 'SignIn'}  </button>
 
               {error && <div className="alert alert-danger mt-2">
                   {error}

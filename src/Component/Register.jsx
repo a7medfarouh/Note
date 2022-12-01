@@ -4,7 +4,7 @@ import { Link , useNavigate } from 'react-router-dom'
 import Joi from 'joi';
 
 export  function Register() {
-  let baseURL = 'https://route-egypt-api.herokuapp.com/';
+  let baseURL = 'https://routeegypt.herokuapp.com/';
   const [user, setUser] = useState({ 'first_name': '', 'last_name': '', 'email': '', 'password': '' });
   const [error, setError] = useState('')
   const [message, setMessage] = useState([])
@@ -84,7 +84,7 @@ function getError(key){
                   <input onChange={getUser}  placeholder="Enter you password" type="password" name="password" className=" form-control" />
                   { getError("password").length===0?'':<div className='alert alert-danger '>{getError("password")}</div>}
               </div>
-              <button type="submit" className={'btn btn-info w-100'+ (isLoading? " disabled":"")}> {isLoading? <i className="fa fa-spinner fa-spin" aria-hidden="true"></i> : 'SignUp'}  </button>
+              <button type="submit" className={'btn btn-info w-100'+(isLoading? " disabled":"")}> {isLoading? <i className="fa fa-spinner fa-spin" aria-hidden="true"></i> : 'SignUp'}  </button>
 
               {error ?<div className="alert alert-danger mt-2">
                             {error}
