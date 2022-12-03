@@ -6,7 +6,7 @@ import Joi from 'joi';
 
 
 export function Login() {
-  let baseURL = 'https://routeegypt.herokuapp.com/';
+  let baseURL = 'https://sticky-note-fe.vercel.app/';
   const [user, setUser] = useState({ 'email': '', 'password': '' });
   const [error, setError] = useState('')
   const [message, setMessage] = useState([])
@@ -23,16 +23,19 @@ export function Login() {
             password:Joi.string().pattern(/^[A-Z]+[a-z]+[0-9]+/i).required(),
         })
         let res=schema.validate(user,{abortEarly:false});
-        console.log(res)
+        // console.log(res)
         if( res.error ){
             setMessage(res.error.details);
             setIsLoading(false);
         }
         else{
             let { data } = await axios.post(baseURL + 'signin', user)
-            console.log(data);
-            if(data.message =='success'){
+            // console.log(data);
+            if(data.message ==="success"){
+                // console.log(data);
+                // console.log(data.token);
                 localStorage.setItem("token",data.token)
+                localStorage.setItem("userdata",data.user._id)
                 navigate('/home');
               
             }

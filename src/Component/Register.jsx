@@ -4,7 +4,7 @@ import { Link , useNavigate } from 'react-router-dom'
 import Joi from 'joi';
 
 export  function Register() {
-  let baseURL = 'https://routeegypt.herokuapp.com/';
+  let baseURL = 'https://sticky-note-fe.vercel.app/';
   const [user, setUser] = useState({ 'first_name': '', 'last_name': '', 'email': '', 'password': '' });
   const [error, setError] = useState('')
   const [message, setMessage] = useState([])
@@ -17,18 +17,18 @@ export  function Register() {
     const schema = Joi.object({
         first_name:Joi.string().alphanum().min(3).max(10).required(),
         last_name:Joi.string().alphanum().min(3).max(10).required(),
-        age:Joi.number().min(18).max(60).required(),
         email:Joi.string().email({ minDomainSegments: 2, tlds: { allow: ['com', 'net'] } }).required(),
         password:Joi.string().pattern(/^[A-Z]+[a-z]+[0-9]+/i).required(),
     })
     let res=schema.validate(user,{abortEarly:false});
+    // console.log(res)
     if( res.error ){
         setMessage(res.error.details);
         setIsLoading(false);
     }
     else{
-        let { data } = await axios.post(baseURL + 'signup', user)
-        
+        let { data } = await axios.post(baseURL+'signup', user)
+        // console.log(data)
 
         if(data.errors){
           setError(data.message);

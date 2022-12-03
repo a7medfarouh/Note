@@ -5,31 +5,19 @@ import Swal from 'sweetalert2';
 // jwtDecode
 export  function Home() {
     let token= localStorage.getItem("token");
-    let userDecoded = jwtDecode(token)
-    let userID = userDecoded._id;
-    // let citizenID = userDecoded._id;
-    console.log(userID);
-    console.log(token);
-    let baseURL = 'https://routeegypt.herokuapp.com/';
+    let userID = localStorage.getItem("userdata")
+    let baseURL = 'https://sticky-note-fe.vercel.app/';
     const [notes, setNotes] = useState([])
 
-    const [note, setNote] = useState({ 'title': '', 'desc': '', 'citzenID':userID, token })
-    
+    const [userdata, setUserData] = useState({userID,token});
+    const [note, setNote] = useState({ 'title': '', 'desc': '',"citizenID":userID,token})
     async function getUserNotes() {
-        let { data } = await axios.post(baseURL+"getUserNotes", {
-            headers: {
-                token,
-                userID,
-            }
-        })
-        console.log(data);
-        if (data.message == 'success') {
+        let  {data} = await axios.post(baseURL+"getUserNotes", userdata)
+        if (data.message === "success") {
             setNotes(data.Notes)
-
         }
-        console.log(notes);
+    
     }
-
     useEffect(() => {
         getUserNotes()
     }, [])
@@ -38,10 +26,7 @@ export  function Home() {
         setNote({ ...note, [target.name]: target.value })
         console.log({ ...note, [target.name]: target.value })
     }
-
     // console.log(note);
-
-
     async function addNote(e) {
         e.preventDefault();
 
